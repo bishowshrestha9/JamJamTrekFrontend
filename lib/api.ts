@@ -3,22 +3,19 @@ const API_BASE_URL = 'http://161.97.167.73:8001/api';
 export interface Trek {
     id: number;
     title: string;
+    data_type: 'trek' | 'package';
     location: string;
     price: number;
     currency: string;
     duration: string;
     difficulty: string;
     type: string;
-    data_type: 'trek' | 'package';
-    distance_km?: number;
+    distance_km: number;
     description?: string;
-    featured_image?: string;
-    featured_image_url?: string;
-    images?: string[] | null;
-    image_urls?: string[];
-    trek_days?: string[] | string;
+    images?: string[];
     is_featured: boolean;
     is_active: boolean;
+    trek_days: string[];
     created_at: string;
     updated_at: string;
 }

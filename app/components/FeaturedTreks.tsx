@@ -31,8 +31,7 @@ export default function FeaturedTreks() {
                 console.log('Featured Treks loaded:', trekData.slice(0, 3));
                 console.log('Image URLs:', trekData.slice(0, 3).map((t: Trek) => ({
                     id: t.id,
-                    featured: t.featured_image_url,
-                    images: t.image_urls
+                    images: t.images
                 })));
             } catch (error) {
                 console.error('Error fetching treks:', error);
@@ -65,8 +64,7 @@ export default function FeaturedTreks() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {treks.map((trek) => {
                                 // Get the first available image
-                                const imageUrl = trek.featured_image_url ||
-                                    (trek.image_urls && trek.image_urls.length > 0 ? trek.image_urls[0] : null);
+                                const imageUrl = (trek.images && trek.images.length > 0 ? trek.images[0] : null);
 
                                 // Get difficulty badge color
                                 const getDifficultyColor = (difficulty: string) => {

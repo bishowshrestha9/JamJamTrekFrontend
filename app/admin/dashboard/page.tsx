@@ -309,6 +309,7 @@ interface ModalProps {
 function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
     const [formData, setFormData] = useState({
         title: '',
+        data_type: 'trek',
         location: '',
         price: '',
         currency: 'USD',
@@ -316,12 +317,10 @@ function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
         difficulty: 'Moderate',
         type: 'trek',
         distance_km: '',
-        data_type: 'trek',
         description: '',
         is_featured: false,
         is_active: true
     });
-    const [featuredImage, setFeaturedImage] = useState<File | null>(null);
     const [images, setImages] = useState<File[]>([]);
     const [trekDays, setTrekDays] = useState<string[]>(['Day 1: ']);
     const [submitting, setSubmitting] = useState(false);
@@ -364,10 +363,6 @@ function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
 
             // Add trek_days as JSON array
             formDataToSend.append('trek_days', JSON.stringify(trekDays));
-
-            if (featuredImage) {
-                formDataToSend.append('featured_image', featuredImage);
-            }
 
             // Add multiple images
             images.forEach((image) => {
@@ -502,24 +497,7 @@ function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Featured Image {featuredImage && <span className="text-green-600 text-xs">(✓ Selected: {featuredImage.name})</span>}
-                            </label>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => setFeaturedImage(e.target.files?.[0] || null)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                            />
-                            {featuredImage && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Size: {(featuredImage.size / 1024).toFixed(1)} KB
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Gallery Images {images.length > 0 && <span className="text-green-600 text-xs">(✓ {images.length} image{images.length > 1 ? 's' : ''} selected)</span>}
+                                Images {images.length > 0 && <span className="text-green-600 text-xs">(✓ {images.length} image{images.length > 1 ? 's' : ''} selected)</span>}
                             </label>
                             <input
                                 type="file"
