@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="pt-16">
+      <main className="pt-0">
         <HeroSection />
         <StatsSection />
         <FeaturedTreks />
