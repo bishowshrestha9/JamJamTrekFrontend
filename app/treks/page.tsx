@@ -78,7 +78,7 @@ export default function TreksPage() {
         <div className="min-h-screen bg-[var(--background)]">
             <Navbar />
             {/* Hero Section */}
-            <section className="bg-green-600 text-white py-16">
+            <section className="bg-green-600 text-white py-16 pt-20">
                 <div className="max-w-7xl mx-auto px-6">
                     <h1 className="text-4xl md:text-5xl font-bold mb-3">Treks & Packages</h1>
                     <p className="text-lg">Discover our curated selection of trekking adventures and cultural tour packages</p>
