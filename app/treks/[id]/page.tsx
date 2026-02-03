@@ -87,31 +87,24 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
     };
 
     const nextImage = () => {
-        const totalImages = (trek?.featured_image_url ? 1 : 0) + (trek?.image_urls?.length || 0);
+        const totalImages = trek?.images?.length || 0;
         if (totalImages > 0) {
             setCurrentImageIndex((prev) => (prev + 1) % totalImages);
         }
     };
 
     const prevImage = () => {
-        const totalImages = (trek?.featured_image_url ? 1 : 0) + (trek?.image_urls?.length || 0);
+        const totalImages = trek?.images?.length || 0;
         if (totalImages > 0) {
             setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
         }
     };
 
-    // Get all images (featured + gallery images from image_urls)
+    // Get all images
     const getAllImages = () => {
-        const imageUrls: string[] = [];
-        if (trek?.featured_image_url) {
-            imageUrls.push(trek.featured_image_url);
-        }
-        if (trek?.image_urls && trek.image_urls.length > 0) {
-            imageUrls.push(...trek.image_urls);
-        }
+        const imageUrls: string[] = trek?.images ? [...trek.images] : [];
         console.log('Trek ID:', trek?.id);
-        console.log('Featured image URL:', trek?.featured_image_url);
-        console.log('Image URLs array:', trek?.image_urls);
+        console.log('Images array:', trek?.images);
         console.log('All images combined:', imageUrls);
         return imageUrls;
     };
