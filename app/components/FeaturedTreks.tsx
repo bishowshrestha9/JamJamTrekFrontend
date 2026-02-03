@@ -112,7 +112,7 @@ export default function FeaturedTreks() {
                                             </div>
 
                                             <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                                {trek.short_description || trek.description}
+                                                {trek.description || 'Discover the beauty of this trek'}
                                             </p>
 
                                             <div className="flex items-center gap-4 text-sm text-gray-600 mb-4 pb-4 border-b border-gray-200">
