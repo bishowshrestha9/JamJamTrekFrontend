@@ -153,7 +153,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
             ) : (
                 <>
                     {/* Header */}
-                    <div className="bg-white border-b border-green-200 pt-20">
+                    <div className="bg-white border-b border-green-200 pt-24">
                         <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-6 py-6">
                             <Link
                                 href="/treks"

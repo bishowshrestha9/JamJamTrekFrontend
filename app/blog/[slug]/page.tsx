@@ -73,7 +73,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             ) : (
                 <>
                     {/* Hero Header with Featured Image */}
-                    <div className="relative pt-20 bg-gray-900 overflow-hidden">
+                    <div className="relative pt-24 bg-gray-900 overflow-hidden">
                         {/* Background Image with Overlay */}
                         {blog.image_url && (
                             <div className="relative h-96 mb-8 rounded-xl overflow-hidden">

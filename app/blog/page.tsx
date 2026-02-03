@@ -47,7 +47,7 @@ export default function BlogPage() {
         <div className="min-h-screen bg-[var(--background)]">
             <Navbar />
             {/* Hero Section */}
-            <section className="bg-green-600 text-white py-16 pt-20">
+            <section className="bg-green-600 text-white py-16 pt-24">
                 <div className="max-w-7xl mx-auto px-6">
                     <h1 className="text-4xl md:text-5xl font-bold mb-3">Travel Blog</h1>
                     <p className="text-lg">Stories, guides, and insights from the Himalayas</p>
