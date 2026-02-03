@@ -1327,7 +1327,7 @@ function CreateBlogModal({ onClose, onSuccess }: ModalProps) {
             formDataToSend.append('content', JSON.stringify(contentSections));
 
             if (featuredImage) {
-                formDataToSend.append('featured_image', featuredImage);
+                formDataToSend.append('image', featuredImage);
             }
 
             await createBlog(token, formDataToSend);
