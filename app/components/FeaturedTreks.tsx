@@ -31,7 +31,7 @@ export default function FeaturedTreks() {
                 console.log('Featured Treks loaded:', trekData.slice(0, 3));
                 console.log('Image URLs:', trekData.slice(0, 3).map((t: Trek) => ({
                     id: t.id,
-                    images: t.images
+                    image_urls: t.image_urls
                 })));
             } catch (error) {
                 console.error('Error fetching treks:', error);
@@ -45,7 +45,7 @@ export default function FeaturedTreks() {
 
     return (
         <section className="py-20 bg-[var(--background)]">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                         Featured Treks
@@ -64,7 +64,7 @@ export default function FeaturedTreks() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {treks.map((trek) => {
                                 // Get the first available image
-                                const imageUrl = (trek.images && trek.images.length > 0 ? trek.images[0] : null);
+                                const imageUrl = (trek.image_urls && trek.image_urls.length > 0 ? trek.image_urls[0] : null);
 
                                 // Get difficulty badge color
                                 const getDifficultyColor = (difficulty: string) => {
@@ -103,7 +103,7 @@ export default function FeaturedTreks() {
 
                                         <div className="p-6">
                                             <h3 className="text-xl font-bold text-gray-900 mb-2">{trek.title}</h3>
-                                            
+
                                             <div className="flex items-center gap-1 text-gray-600 mb-3">
                                                 <MapPin className="w-4 h-4" />
                                                 <span className="text-sm">{trek.location}</span>
@@ -137,7 +137,7 @@ export default function FeaturedTreks() {
                         </div>
 
                         <div className="text-center mt-12">
-                            <Link 
+                            <Link
                                 href="/treks"
                                 className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 border-2 border-green-500 hover:scale-105"
                             >

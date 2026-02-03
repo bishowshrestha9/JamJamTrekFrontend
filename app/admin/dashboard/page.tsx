@@ -8,11 +8,78 @@ import toast from 'react-hot-toast';
 
 type Tab = 'overview' | 'treks' | 'blogs' | 'reviews';
 
+// Confirmation Modal Component
+interface ConfirmationModalProps {
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+    confirmText?: string;
+    cancelText?: string;
+    isDangerous?: boolean;
+}
+
+function ConfirmationModal({
+    isOpen,
+    title,
+    message,
+    onConfirm,
+    onCancel,
+    confirmText = 'Confirm',
+    cancelText = 'Cancel',
+    isDangerous = false
+}: ConfirmationModalProps) {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-200">
+            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full animate-in zoom-in-95 duration-300">
+                <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+                    <p className="text-gray-600 mb-6">{message}</p>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={onCancel}
+                            className="flex-1 px-4 py-2.5 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 font-semibold"
+                        >
+                            {cancelText}
+                        </button>
+                        <button
+                            onClick={onConfirm}
+                            className={`flex-1 px-4 py-2.5 rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl ${isDangerous
+                                ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white'
+                                : 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white'
+                                }`}
+                        >
+                            {confirmText}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
 export default function AdminDashboard() {
     const router = useRouter();
     const [adminEmail, setAdminEmail] = useState('');
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<Tab>('overview');
+
+    // Confirmation modal state
+    const [confirmModal, setConfirmModal] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        onConfirm: () => void;
+    }>({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => { }
+    });
 
     useEffect(() => {
         verifyAuth();
@@ -1569,6 +1636,19 @@ function TreksTab() {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editingTrek, setEditingTrek] = useState<any | null>(null);
 
+    // Confirmation modal state
+    const [confirmModal, setConfirmModal] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        onConfirm: () => void;
+    }>({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => { }
+    });
+
     useEffect(() => {
         fetchTreks();
     }, []);
@@ -1617,24 +1697,29 @@ function TreksTab() {
     };
 
     const handleDeleteTrek = async (trekId: number, trekTitle: string) => {
-        if (!confirm(`Are you sure you want to delete "${trekTitle}"? This action cannot be undone.`)) {
-            return;
-        }
+        setConfirmModal({
+            isOpen: true,
+            title: 'Delete Trek',
+            message: `Are you sure you want to delete "${trekTitle}"? This action cannot be undone.`,
+            onConfirm: async () => {
+                setConfirmModal({ ...confirmModal, isOpen: false });
 
-        try {
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                toast.error('Authentication required. Please log in again.');
-                return;
+                try {
+                    const token = localStorage.getItem('authToken');
+                    if (!token) {
+                        toast.error('Authentication required. Please log in again.');
+                        return;
+                    }
+
+                    await deleteTrek(token, trekId);
+                    toast.success('Trek deleted successfully!');
+                    fetchTreks(); // Refresh the list
+                } catch (error: any) {
+                    console.error('Error deleting trek:', error);
+                    toast.error(error.message || 'Failed to delete trek. Please try again.');
+                }
             }
-
-            await deleteTrek(token, trekId);
-            toast.success('Trek deleted successfully!');
-            fetchTreks(); // Refresh the list
-        } catch (error: any) {
-            console.error('Error deleting trek:', error);
-            toast.error(error.message || 'Failed to delete trek. Please try again.');
-        }
+        });
     };
 
     if (loading) {
@@ -1678,6 +1763,17 @@ function TreksTab() {
                     }}
                 />
             )}
+
+            <ConfirmationModal
+                isOpen={confirmModal.isOpen}
+                title={confirmModal.title}
+                message={confirmModal.message}
+                onConfirm={confirmModal.onConfirm}
+                onCancel={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+                confirmText="Delete"
+                cancelText="Cancel"
+                isDangerous={true}
+            />
 
             <div className="space-y-4">
                 {treks.map((trek) => (
@@ -1938,6 +2034,19 @@ function ReviewsTab() {
     const [reviews, setReviews] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Confirmation modal state
+    const [confirmModal, setConfirmModal] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        onConfirm: () => void;
+    }>({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => { }
+    });
+
     useEffect(() => {
         fetchReviews();
     }, []);
@@ -1991,27 +2100,33 @@ function ReviewsTab() {
     };
 
     const handleDelete = async (reviewId: number) => {
-        if (!confirm('Are you sure you want to delete this review?')) {
-            return;
-        }
+        setConfirmModal({
+            isOpen: true,
+            title: 'Delete Review',
+            message: 'Are you sure you want to delete this review? This action cannot be undone.',
+            onConfirm: async () => {
+                setConfirmModal({ ...confirmModal, isOpen: false });
 
-        try {
-            const token = localStorage.getItem('authToken');
-            const response = await fetch(`http://161.97.167.73:8001/api/reviews/${reviewId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+                try {
+                    const token = localStorage.getItem('authToken');
+                    const response = await fetch(`http://161.97.167.73:8001/api/reviews/${reviewId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    });
 
-            if (response.ok) {
-                // Refresh reviews list
-                fetchReviews();
+                    if (response.ok) {
+                        toast.success('Review deleted successfully!');
+                        fetchReviews();
+                    }
+                } catch (error) {
+                    console.error('Error deleting review:', error);
+                    toast.error('Failed to delete review. Please try again.');
+                }
             }
-        } catch (error) {
-            console.error('Error deleting review:', error);
-        }
+        });
     };
 
     const renderStars = (rating: number) => {
@@ -2040,6 +2155,17 @@ function ReviewsTab() {
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">Manage Reviews</h2>
             </div>
+
+            <ConfirmationModal
+                isOpen={confirmModal.isOpen}
+                title={confirmModal.title}
+                message={confirmModal.message}
+                onConfirm={confirmModal.onConfirm}
+                onCancel={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+                confirmText="Delete"
+                cancelText="Cancel"
+                isDangerous={true}
+            />
 
             <div className="space-y-4">
                 {reviews.map((review) => (
