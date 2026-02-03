@@ -59,7 +59,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             <Navbar />
 
             {loading ? (
-                <div className="text-center py-40 mt-20">
+                <div className="text-center py-40 pt-20">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
                 </div>
             ) : !blog ? (
@@ -73,7 +73,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             ) : (
                 <>
                     {/* Hero Header with Featured Image */}
-                    <div className="relative mt-20 bg-gray-900 overflow-hidden">
+                    <div className="relative pt-20 bg-gray-900 overflow-hidden">
                         {/* Background Image with Overlay */}
                         {blog.image_url && (
                             <div className="relative h-96 mb-8 rounded-xl overflow-hidden">

@@ -139,7 +139,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
             <Navbar />
 
             {loading ? (
-                <div className="text-center py-40 mt-20">
+                <div className="text-center py-40 pt-20">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
                 </div>
             ) : !trek ? (
@@ -153,7 +153,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
             ) : (
                 <>
                     {/* Header */}
-                    <div className="bg-white border-b border-green-200 mt-20">
+                    <div className="bg-white border-b border-green-200 pt-20">
                         <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-6 py-6">
                             <Link
                                 href="/treks"
