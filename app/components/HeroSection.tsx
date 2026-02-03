@@ -13,7 +13,7 @@ export default function HeroSection() {
             />
             <div className="absolute inset-0 bg-black/30" />
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col justify-center">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-6 h-full flex flex-col justify-center">
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 max-w-4xl">
                     Discover the Himalayas
                 </h1>
@@ -23,13 +23,13 @@ export default function HeroSection() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <Link 
+                    <Link
                         href="/treks"
                         className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 text-center"
                     >
                         Explore Treks
                     </Link>
-                    <Link 
+                    <Link
                         href="/treks"
                         className="bg-white/90 hover:bg-white text-green-600 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105 text-center"
                     >
