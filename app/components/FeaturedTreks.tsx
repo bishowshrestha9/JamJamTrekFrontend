@@ -108,7 +108,7 @@ export default function FeaturedTreks() {
                                             
                                             <div className="flex items-center gap-1 text-gray-600 mb-3">
                                                 <MapPin className="w-4 h-4" />
-                                                <span className="text-sm">{trek.region || 'Nepal'}</span>
+                                                <span className="text-sm">{trek.location}</span>
                                             </div>
 
                                             <p className="text-gray-600 text-sm mb-4 line-clamp-2">
