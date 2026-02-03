@@ -13,7 +13,7 @@ export default function HeroSection() {
             />
             <div className="absolute inset-0 bg-black/30" />
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-6 h-full flex flex-col justify-center">
+            <div className="relative z-10 max-w-7xl mx-auto px-8 sm:px-10 lg:px-6 h-full flex flex-col justify-center">
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 max-w-4xl">
                     Discover the Himalayas
                 </h1>
