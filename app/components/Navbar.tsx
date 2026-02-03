@@ -31,7 +31,7 @@ export default function Navbar() {
                             src="/logo.png"
                             alt="JamJam Trek Logo"
                             fill
-                            className="object-contain scale-220"
+                            className="object-contain scale-320"
                         />
                     </div>
                 </Link>

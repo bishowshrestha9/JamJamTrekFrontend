@@ -57,10 +57,10 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                     {/* Hero Header with Featured Image */}
                     <div className="relative mt-20 bg-gray-900 overflow-hidden">
                         {/* Background Image with Overlay */}
-                        {blog.image_url && (
-                            <div className="absolute inset-0">
+                        {blog.image && (
+                            <div className="relative h-96 mb-8 rounded-xl overflow-hidden">
                                 <Image
-                                    src={blog.image_url}
+                                    src={blog.image}
                                     alt={blog.title}
                                     fill
                                     className="object-cover opacity-30"
@@ -68,7 +68,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-gray-900/70 to-gray-900"></div>
                             </div>
                         )}
-                        
+
                         {/* Header Content */}
                         <div className="relative max-w-4xl mx-auto px-6 py-16">
                             <Link

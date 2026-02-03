@@ -163,8 +163,8 @@ export default function TreksPage() {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {filteredTreks.map((trek) => {
-                                // Get the first available image
-                                const imageUrl = (trek.images && trek.images.length > 0 ? trek.images[0] : null);
+                                // Get the first available image from images array
+                                const imageUrl = trek.images && trek.images.length > 0 ? trek.images[0] : null;
 
                                 return (
                                     <Link

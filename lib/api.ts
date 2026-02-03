@@ -67,7 +67,6 @@ export interface Blog {
     slug: string;
     is_active: boolean;
     image?: string;
-    image_url?: string;
     content?: Array<{ heading: string; paragraph: string }>;
     conclusion?: string;
     created_at: string;
