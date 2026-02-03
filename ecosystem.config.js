@@ -2,10 +2,11 @@ module.exports = {
   apps: [
     {
       name: 'jamjam-frontend',
-      script: 'npm',
+      script: 'node_modules/next/dist/bin/next',
       args: 'start',
-      cwd: '/var/www/jamjam',
+      cwd: '/var/www/JamJamTrekFrontend',
       instances: 1,
+      exec_mode: 'fork',
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
