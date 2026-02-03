@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Mountain, Activity, FileText, MessageSquare, LogOut, Star, X, Plus } from 'lucide-react';
 import { verifyAuth as verifyAuthAPI, createTrek, createBlog, updateTrek, deleteTrek } from '@/lib/api';
+import toast from 'react-hot-toast';
 
 type Tab = 'overview' | 'treks' | 'blogs' | 'reviews';
 
@@ -346,7 +347,7 @@ function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                alert('Authentication required. Please log in again.');
+                toast.error('Authentication required. Please log in again.');
                 return;
             }
 
@@ -370,11 +371,11 @@ function CreateTrekModal({ onClose, onSuccess }: ModalProps) {
             });
 
             await createTrek(token, formDataToSend);
-            alert('Trek created successfully!');
+            toast.success('Trek created successfully!');
             onSuccess();
         } catch (error: any) {
             console.error('Error creating trek:', error);
-            alert(error.message || 'An error occurred while creating the trek');
+            toast.error(error.message || 'An error occurred while creating the trek');
         } finally {
             setSubmitting(false);
         }
@@ -668,7 +669,7 @@ function EditTrekModal({ trek, onClose, onSuccess }: EditTrekModalProps) {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                alert('Authentication required. Please log in again.');
+                toast.error('Authentication required. Please log in again.');
                 return;
             }
 
@@ -693,11 +694,11 @@ function EditTrekModal({ trek, onClose, onSuccess }: EditTrekModalProps) {
             });
 
             await updateTrek(token, trek.id, formDataToSend);
-            alert('Trek updated successfully!');
+            toast.success('Trek updated successfully!');
             onSuccess();
         } catch (error: any) {
             console.error('Error updating trek:', error);
-            alert(error.message || 'Failed to update trek. Please try again.');
+            toast.error(error.message || 'Failed to update trek. Please try again.');
         } finally {
             setSubmitting(false);
         }
@@ -1004,7 +1005,7 @@ function CreateActivityModal({ onClose, onSuccess }: ModalProps) {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                alert('Authentication required. Please log in again.');
+                toast.error('Authentication required. Please log in again.');
                 return;
             }
 
@@ -1025,7 +1026,7 @@ function CreateActivityModal({ onClose, onSuccess }: ModalProps) {
 
         } catch (error: any) {
             console.error('Error creating activity:', error);
-            alert(error.message || 'An error occurred while creating the activity');
+            toast.error(error.message || 'An error occurred while creating the activity');
         } finally {
             setSubmitting(false);
         }
@@ -1309,7 +1310,7 @@ function CreateBlogModal({ onClose, onSuccess }: ModalProps) {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                alert('Authentication required. Please log in again.');
+                toast.error('Authentication required. Please log in again.');
                 return;
             }
 
@@ -1331,11 +1332,11 @@ function CreateBlogModal({ onClose, onSuccess }: ModalProps) {
             }
 
             await createBlog(token, formDataToSend);
-            alert('Blog post created successfully!');
+            toast.success('Blog post created successfully!');
             onSuccess();
         } catch (error: any) {
             console.error('Error creating blog:', error);
-            alert(error.message || 'An error occurred while creating the blog');
+            toast.error(error.message || 'An error occurred while creating the blog');
         } finally {
             setSubmitting(false);
         }
@@ -1623,16 +1624,16 @@ function TreksTab() {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                alert('Authentication required. Please log in again.');
+                toast.error('Authentication required. Please log in again.');
                 return;
             }
 
             await deleteTrek(token, trekId);
-            alert('Trek deleted successfully!');
+            toast.success('Trek deleted successfully!');
             fetchTreks(); // Refresh the list
         } catch (error: any) {
             console.error('Error deleting trek:', error);
-            alert(error.message || 'Failed to delete trek. Please try again.');
+            toast.error(error.message || 'Failed to delete trek. Please try again.');
         }
     };
 
