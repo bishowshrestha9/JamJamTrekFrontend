@@ -36,13 +36,9 @@ export default function AdminLogin() {
             } else {
                 setError(data.message || 'Invalid email or password');
             }
-        } catch (err: unknown) {
+        } catch (err: any) {
             console.error('Login error:', err);
-            if (err instanceof Error) {
-                setError(err.message || 'An error occurred. Please try again.');
-            } else {
-                setError('An error occurred. Please try again.');
-            }
+            setError(err.message || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }

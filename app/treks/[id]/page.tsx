@@ -35,7 +35,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                 // Parse trek_days if it's a string (handle multiple layers of escaping)
                 if (foundTrek && foundTrek.trek_days) {
                     if (typeof foundTrek.trek_days === 'string') {
-                        let current: unknown = foundTrek.trek_days;
+                        let current: any = foundTrek.trek_days;
                         let maxAttempts = 10; // Prevent infinite loops
                         
                         while (maxAttempts > 0 && typeof current === 'string') {

@@ -55,7 +55,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             ) : (
                 <>
                     {/* Hero Header with Featured Image */}
-                    <div className="relative mt-20 bg-green-900 overflow-hidden">
+                    <div className="relative mt-20 bg-gray-900 overflow-hidden">
                         {/* Background Image with Overlay */}
                         {blog.image_url && (
                             <div className="absolute inset-0">
@@ -65,7 +65,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                                     fill
                                     className="object-cover opacity-30"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-b from-green-900/50 via-green-900/70 to-green-900"></div>
+                                <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-gray-900/70 to-gray-900"></div>
                             </div>
                         )}
                         
@@ -84,13 +84,13 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                             </h1>
 
                             {blog.subtitle && (
-                                <p className="text-xl text-green-100 mb-8 leading-relaxed">
+                                <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                                     {blog.subtitle}
                                 </p>
                             )}
 
                             {/* Meta Info */}
-                            <div className="flex items-center gap-6 text-sm text-green-100">
+                            <div className="flex items-center gap-6 text-sm text-gray-300">
                                 {blog.author && (
                                     <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
                                         <User className="w-4 h-4" />

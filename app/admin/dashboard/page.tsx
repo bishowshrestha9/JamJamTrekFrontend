@@ -1,9 +1,6 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/set-state-in-effect */
-
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Mountain, Activity, FileText, MessageSquare, LogOut, Star, X, Plus } from 'lucide-react';
 import { verifyAuth as verifyAuthAPI, createTrek, createBlog, updateTrek, deleteTrek } from '@/lib/api';
@@ -16,30 +13,11 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<Tab>('overview');
 
-    const handleLogout = useCallback(async () => {
-        const token = localStorage.getItem('authToken');
+    useEffect(() => {
+        verifyAuth();
+    }, []);
 
-        if (token) {
-            try {
-                await fetch('http://161.97.167.73:8001/api/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-            } catch (error) {
-                console.error('Logout error:', error);
-            }
-        }
-
-        localStorage.removeItem('isAdminLoggedIn');
-        localStorage.removeItem('adminEmail');
-        localStorage.removeItem('authToken');
-        router.push('/admin/login');
-    }, [router]);
-
-    const verifyAuth = useCallback(async () => {
+    const verifyAuth = async () => {
         const isLoggedIn = localStorage.getItem('isAdminLoggedIn');
         const token = localStorage.getItem('authToken');
         const email = localStorage.getItem('adminEmail');
@@ -61,11 +39,30 @@ export default function AdminDashboard() {
             console.error('Auth verification error:', error);
             handleLogout();
         }
-    }, [handleLogout, router]);
+    };
 
-    useEffect(() => {
-        void verifyAuth();
-    }, [verifyAuth]);
+    const handleLogout = async () => {
+        const token = localStorage.getItem('authToken');
+
+        if (token) {
+            try {
+                await fetch('http://161.97.167.73:8001/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        localStorage.removeItem('isAdminLoggedIn');
+        localStorage.removeItem('adminEmail');
+        localStorage.removeItem('authToken');
+        router.push('/admin/login');
+    };
 
     if (loading) {
         return (

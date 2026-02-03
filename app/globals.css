@@ -1,13 +1,13 @@
 ﻿@import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f2f1f;
+  --background: #f0f4f0;
+  --foreground: #1a3a1a;
   --card-bg: #ffffff;
-  --primary: #0f3d27;
-  --primary-light: #1b5e3b;
-  --primary-dark: #082016;
-  --accent: #2f7a54;
+  --primary: #2d6a4f;
+  --primary-light: #40916c;
+  --primary-dark: #1b4332;
+  --accent: #52b788;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-montserrat);
 }
@@ -43,56 +43,56 @@ html {
 
 /* Pure Neumorphism - Green Theme */
 .shadow-neumorphism {
-  box-shadow: 8px 8px 16px #e2e8e2, -8px -8px 16px #ffffff;
+  box-shadow: 8px 8px 16px #d1ddd1, -8px -8px 16px #ffffff;
   background: var(--card-bg);
 }
 
 .shadow-neumorphism-sm {
-  box-shadow: 4px 4px 8px #e2e8e2, -4px -4px 8px #ffffff;
+  box-shadow: 4px 4px 8px #d1ddd1, -4px -4px 8px #ffffff;
   background: var(--card-bg);
 }
 
 .shadow-neumorphism-lg {
-  box-shadow: 12px 12px 24px #e2e8e2, -12px -12px 24px #ffffff;
+  box-shadow: 12px 12px 24px #d1ddd1, -12px -12px 24px #ffffff;
   background: var(--card-bg);
 }
 
 .shadow-neumorphism-inset {
-  box-shadow: inset 6px 6px 12px #e2e8e2, inset -6px -6px 12px #ffffff;
+  box-shadow: inset 6px 6px 12px #d1ddd1, inset -6px -6px 12px #ffffff;
   background: var(--card-bg);
 }
 
 .shadow-neumorphism-hover {
-  box-shadow: 6px 6px 12px #e2e8e2, -6px -6px 12px #ffffff;
+  box-shadow: 6px 6px 12px #d1ddd1, -6px -6px 12px #ffffff;
   background: var(--card-bg);
 }
 
 /* Neumorphic Button */
 .btn-neumorphic {
   background: var(--card-bg);
-  box-shadow: 8px 8px 16px #e2e8e2, -8px -8px 16px #ffffff;
+  box-shadow: 8px 8px 16px #d1ddd1, -8px -8px 16px #ffffff;
   transition: all 0.3s ease;
 }
 
 .btn-neumorphic:hover {
-  box-shadow: 6px 6px 12px #e2e8e2, -6px -6px 12px #ffffff;
+  box-shadow: 6px 6px 12px #d1ddd1, -6px -6px 12px #ffffff;
 }
 
 .btn-neumorphic:active {
-  box-shadow: inset 4px 4px 8px #e2e8e2, inset -4px -4px 8px #ffffff;
+  box-shadow: inset 4px 4px 8px #d1ddd1, inset -4px -4px 8px #ffffff;
 }
 
 /* Card Styles - Neumorphism */
 .card-neumorphic {
   background: var(--card-bg);
   border-radius: 1.5rem;
-  box-shadow: 10px 10px 20px #e2e8e2, -10px -10px 20px #ffffff;
+  box-shadow: 10px 10px 20px #d1ddd1, -10px -10px 20px #ffffff;
   transition: all 0.3s ease;
 }
 
 .card-neumorphic:hover {
   transform: translateY(-4px);
-  box-shadow: 12px 12px 24px #e2e8e2, -12px -12px 24px #ffffff;
+  box-shadow: 12px 12px 24px #d1ddd1, -12px -12px 24px #ffffff;
 }
 
 @keyframes zoom-in {
