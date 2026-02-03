@@ -298,22 +298,58 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                                     </div>
                                 )}
 
+
                                 {/* Trek Days Itinerary */}
-                                {trek.trek_days && Array.isArray(trek.trek_days) && trek.trek_days.length > 0 && (
-                                    <div className="card-neumorphic p-6">
-                                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Itinerary</h2>
-                                        <div className="space-y-3">
-                                            {trek.trek_days.map((day: string, index: number) => (
-                                                <div key={index} className="flex gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold text-sm">
-                                                        {index + 1}
-                                                    </div>
-                                                    <p className="text-gray-700 pt-1">{day}</p>
-                                                </div>
-                                            ))}
+                                {trek.trek_days && Array.isArray(trek.trek_days) && trek.trek_days.length > 0 && (() => {
+                                    // Helper function to parse potentially nested JSON strings
+                                    const parseTrekDay = (day: any): string => {
+                                        if (typeof day !== 'string') return String(day);
+
+                                        let current = day;
+                                        let attempts = 0;
+                                        const maxAttempts = 5;
+
+                                        // Keep parsing until we get a clean string
+                                        while (attempts < maxAttempts && typeof current === 'string') {
+                                            try {
+                                                // Try to parse as JSON
+                                                const parsed = JSON.parse(current);
+
+                                                // If it's an array, get the first element
+                                                if (Array.isArray(parsed)) {
+                                                    current = parsed[0] || '';
+                                                } else {
+                                                    current = parsed;
+                                                }
+                                                attempts++;
+                                            } catch (e) {
+                                                // If parsing fails, we have a clean string
+                                                break;
+                                            }
+                                        }
+
+                                        return String(current);
+                                    };
+
+                                    return (
+                                        <div className="card-neumorphic p-6">
+                                            <h2 className="text-2xl font-bold text-gray-900 mb-4">Itinerary</h2>
+                                            <div className="space-y-3">
+                                                {trek.trek_days.map((day: string, index: number) => {
+                                                    const cleanDay = parseTrekDay(day);
+                                                    return (
+                                                        <div key={index} className="flex gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                                            <div className="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                                                                {index + 1}
+                                                            </div>
+                                                            <p className="text-gray-700 pt-1">{cleanDay}</p>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    );
+                                })()}
                             </div>
 
                             {/* Sidebar */}
