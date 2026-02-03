@@ -222,6 +222,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                                             alt={`${trek.title} - Image ${index + 1}`}
                                             fill
                                             className="object-cover"
+                                            unoptimized
                                         />
                                     </div>
                                 ))}

@@ -82,6 +82,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                                     alt={blog.title}
                                     fill
                                     className="object-cover opacity-30"
+                                    unoptimized
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-gray-900/70 to-gray-900"></div>
                             </div>
