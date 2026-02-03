@@ -1,8 +1,30 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import { getTreks, type Trek } from '@/lib/api';
+import { getTreks } from '@/lib/api';
 import Image from 'next/image';
+
+// Extended Trek interface to include image_urls from API
+interface TrekWithImages {
+    id: number;
+    title: string;
+    data_type: 'trek' | 'package';
+    location: string;
+    price: number;
+    currency: string;
+    duration: string;
+    difficulty: string;
+    type: string;
+    distance_km: number;
+    description?: string;
+    images?: string[];
+    image_urls?: string[]; // Full URLs from API
+    is_featured: boolean;
+    is_active: boolean;
+    trek_days: string[];
+    created_at: string;
+    updated_at: string;
+}
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -10,7 +32,7 @@ import { MapPin, Calendar, ArrowLeft, ChevronLeft, ChevronRight, X, Phone, Mail,
 
 export default function TrekDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const resolvedParams = use(params);
-    const [trek, setTrek] = useState<Trek | null>(null);
+    const [trek, setTrek] = useState<TrekWithImages | null>(null);
     const [loading, setLoading] = useState(true);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [showContactModal, setShowContactModal] = useState(false);
@@ -30,14 +52,14 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                 }
 
                 // Find the specific trek by ID
-                const foundTrek = trekData.find((t: Trek) => t.id === parseInt(resolvedParams.id));
+                const foundTrek = trekData.find((t: TrekWithImages) => t.id === parseInt(resolvedParams.id));
 
                 // Parse trek_days if it's a string (handle multiple layers of escaping)
                 if (foundTrek && foundTrek.trek_days) {
                     if (typeof foundTrek.trek_days === 'string') {
                         let current: any = foundTrek.trek_days;
                         let maxAttempts = 10; // Prevent infinite loops
-                        
+
                         while (maxAttempts > 0 && typeof current === 'string') {
                             try {
                                 const parsed = JSON.parse(current);
@@ -53,7 +75,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                                 break;
                             }
                         }
-                        
+
                         if (maxAttempts === 0) {
                             console.warn('Trek days parsing exhausted max attempts');
                             foundTrek.trek_days = [];
@@ -100,11 +122,11 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
         }
     };
 
-    // Get all images
+    // Get all images - use image_urls from API which contains full URLs
     const getAllImages = () => {
-        const imageUrls: string[] = trek?.images ? [...trek.images] : [];
+        const imageUrls: string[] = trek?.image_urls ? [...trek.image_urls] : [];
         console.log('Trek ID:', trek?.id);
-        console.log('Images array:', trek?.images);
+        console.log('Image URLs from API:', trek?.image_urls);
         console.log('All images combined:', imageUrls);
         return imageUrls;
     };
@@ -200,7 +222,6 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                                             alt={`${trek.title} - Image ${index + 1}`}
                                             fill
                                             className="object-cover"
-                                            unoptimized
                                         />
                                     </div>
                                 ))}
@@ -281,7 +302,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                                     <div className="card-neumorphic p-6">
                                         <h2 className="text-2xl font-bold text-gray-900 mb-4">Itinerary</h2>
                                         <div className="space-y-3">
-                                            {trek.trek_days.map((day, index: number) => (
+                                            {trek.trek_days.map((day: string, index: number) => (
                                                 <div key={index} className="flex gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
                                                     <div className="flex-shrink-0 w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-semibold text-sm">
                                                         {index + 1}

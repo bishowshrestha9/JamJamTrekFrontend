@@ -13,6 +13,7 @@ export interface Trek {
     distance_km: number;
     description?: string;
     images?: string[];
+    image_urls?: string[]; // Full URLs from API
     is_featured: boolean;
     is_active: boolean;
     trek_days: string[];
@@ -67,6 +68,7 @@ export interface Blog {
     slug: string;
     is_active: boolean;
     image?: string;
+    image_url?: string; // Full URL from API
     content?: Array<{ heading: string; paragraph: string }>;
     conclusion?: string;
     created_at: string;

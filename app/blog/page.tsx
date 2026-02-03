@@ -76,9 +76,9 @@ export default function BlogPage() {
                                 >
                                     {/* Image */}
                                     <div className="relative h-64 pt-2">
-                                        {blog.image ? (
+                                        {blog.image_url ? (
                                             <Image
-                                                src={blog.image}
+                                                src={blog.image_url}
                                                 alt={blog.title}
                                                 fill
                                                 className="object-contain"

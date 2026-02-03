@@ -1,16 +1,34 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import { getBlog, type Blog } from '@/lib/api';
+import { getBlog } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { Calendar, User, ArrowLeft } from 'lucide-react';
 
+// Extended Blog interface to include image_url from API
+interface BlogWithImageUrl {
+    id: number;
+    title: string;
+    subtitle?: string;
+    description: string;
+    excerpt?: string;
+    author?: string;
+    slug: string;
+    is_active: boolean;
+    image?: string;
+    image_url?: string; // Full URL from API
+    content?: Array<{ heading: string; paragraph: string }>;
+    conclusion?: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = use(params);
-    const [blog, setBlog] = useState<Blog | null>(null);
+    const [blog, setBlog] = useState<BlogWithImageUrl | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -57,10 +75,10 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                     {/* Hero Header with Featured Image */}
                     <div className="relative mt-20 bg-gray-900 overflow-hidden">
                         {/* Background Image with Overlay */}
-                        {blog.image && (
+                        {blog.image_url && (
                             <div className="relative h-96 mb-8 rounded-xl overflow-hidden">
                                 <Image
-                                    src={blog.image}
+                                    src={blog.image_url}
                                     alt={blog.title}
                                     fill
                                     className="object-cover opacity-30"
