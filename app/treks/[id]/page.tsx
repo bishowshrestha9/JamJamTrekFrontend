@@ -154,7 +154,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                 <>
                     {/* Header */}
                     <div className="bg-white border-b border-green-200 mt-20">
-                        <div className="max-w-7xl mx-auto px-6 py-6">
+                        <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-6 py-6">
                             <Link
                                 href="/treks"
                                 className="inline-flex items-center gap-2 text-green-700 hover:text-green-800 font-medium mb-6 transition-colors"
@@ -210,7 +210,7 @@ export default function TrekDetailPage({ params }: { params: Promise<{ id: strin
                     {/* Image Slider */}
                     {allImages.length > 0 ? (
                         <div className="relative bg-gray-900">
-                            <div className="relative h-[500px] max-w-7xl mx-auto">
+                            <div className="relative h-[500px] max-w-7xl mx-auto px-8 sm:px-10 lg:px-6">
                                 {allImages.map((imageUrl, index) => (
                                     <div
                                         key={index}

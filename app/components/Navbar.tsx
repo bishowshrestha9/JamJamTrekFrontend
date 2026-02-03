@@ -26,12 +26,12 @@ export default function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-green-800 border-b border-green-900">
             <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
                 <Link href="/" className="flex items-center">
-                    <div className="relative w-16 h-16">
+                    <div className="relative w-12 h-12 md:w-16 md:h-16">
                         <Image
                             src="/logo.png"
                             alt="JamJam Trek Logo"
                             fill
-                            className="object-contain scale-[2.8]"
+                            className="object-contain scale-[2.0] md:scale-[2.5]"
                         />
                     </div>
                 </Link>
